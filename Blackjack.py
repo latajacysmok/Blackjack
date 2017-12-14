@@ -34,47 +34,102 @@ class Hand(object):
         self.cards.remove(card)
         other_hand.add(card)
 
-card1 = Card(rank = "A", suit = "c")
-print("Wyświtlam obiekt kart (klasy Card): ")
-print(card1)
+class Deck(Hand):
+    """ Talia kart do gry"""
+    def populate(self):
+        for suit in Card.SUITS:
+            for rank in Card.RANKS:
+                self.add(Card(rank, suit))
 
-card2 = Card(rank = "2", suit = "c")
-card3 = Card(rank = "7", suit = "d")
-card4 = Card(rank = "Q", suit = "h")
-card5 = Card(rank = "J", suit = "s")
-card6 = Card(rank = "A", suit = "c")
+    def shuffle(self):
+        import random
+        random.shuffle(self.cards)
 
-print("Wyświtlam resztę kart: ")
-print(card2)
-print(card3)
-print(card4)
-print(card5)
-print(card6)
+    def deal(self, hands, per_hand = 1):
+        for rounds in range(per_hand):
+            for hand in hands:
+                if self.cards:
+                    top_card = self. cards[0]
+                    self.give(top_card, hand)
+                else:
+                    print("Nie mogę dalej rozdawać. Zabrakło kart!")
+
+deck1 = Deck()
+print("Utworzyłem nową talię.")
+print("Talia: ")
+print(deck1)
+
+deck1.populate()
+
+print("\nDodałem do talii komplet kart.")
+print("Talia: ")
+print(deck1)
+
+deck1.shuffle()
+
+print("\nPotasowałem talię kart.")
+print("Talia: ")
+print(deck1)
 
 my_hand = Hand()
-print("\nWyświetlam zawartość mojej ręki przed dodaniem jakichkolwiek kart:")
-print(my_hand)
-
-my_hand.add(card1)
-my_hand.add(card2)
-my_hand.add(card3)
-my_hand.add(card4)
-my_hand.add(card5)
-my_hand.add(card6)
-print("\nWyświetlam zawartość mojej ręki po dodaniu 6 kart:")
-print(my_hand)
-
 your_hand = Hand()
-my_hand.give(card1, your_hand)
-my_hand.give(card2, your_hand)
-print("\nPrzekazuje pierwsze dwie karty z mojej ręki do Twojej.")
-print("Twoja ręka: ")
-print(your_hand)
-print("Moja ręka: ")
-print(my_hand)
+hands=[my_hand, your_hand]
 
-my_hand.clear()
-print("Moja ręka po usunięciu z niej kart: ")
-print(my_hand)
+deck1.deal(hands, per_hand = 5)
+
+print("\nRozdałem Tobie i sobie po 5 kart.")
+print("Moja ręka: ")
+print(my_hand )
+print("\nTwoja ręka.")
+print(your_hand)
+print("\nTalia: ")
+print(deck1)
+
+deck1.clear()
+print("\nUsunąłem zawartość talii.")
+print("Talia: ", deck1)
+
+# card1 = Card(rank = "A", suit = "c")
+# print("Wyświtlam obiekt kart (klasy Card): ")
+# print(card1)
+#
+# card2 = Card(rank = "2", suit = "c")
+# card3 = Card(rank = "7", suit = "d")
+# card4 = Card(rank = "Q", suit = "h")
+# card5 = Card(rank = "J", suit = "s")
+# card6 = Card(rank = "A", suit = "c")
+#
+# print("Wyświtlam resztę kart: ")
+# print(card2)
+# print(card3)
+# print(card4)
+# print(card5)
+# print(card6)
+#
+# my_hand = Hand()
+# print("\nWyświetlam zawartość mojej ręki przed dodaniem jakichkolwiek kart:")
+# print(my_hand)
+#
+# my_hand.add(card1)
+# my_hand.add(card2)
+# my_hand.add(card3)
+# my_hand.add(card4)
+# my_hand.add(card5)
+# my_hand.add(card6)
+# print("\nWyświetlam zawartość mojej ręki po dodaniu 6 kart:")
+# print(my_hand)
+#
+# your_hand = Hand()
+# my_hand.give(card1, your_hand)
+# my_hand.give(card2, your_hand)
+# print("\nPrzekazuje pierwsze dwie karty z mojej ręki do Twojej.")
+# print("Twoja ręka: ")
+# print(your_hand)
+# print("Moja ręka: ")
+# print(my_hand)
+#
+# my_hand.clear()
+# print("Moja ręka po usunięciu z niej kart: ")
+# print(my_hand)
 
 input("\n\nAby zakończyć program, naciśnij klawisz Enter.")
