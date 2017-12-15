@@ -54,40 +54,83 @@ class Deck(Hand):
                 else:
                     print("Nie mogę dalej rozdawać. Zabrakło kart!")
 
-deck1 = Deck()
-print("Utworzyłem nową talię.")
-print("Talia: ")
-print(deck1)
+class Positionable_Card(Card):
+    """ Karta, która może być odkryta lub zakryta. """
+    def __init__(self, rank, suit, face_up = True):
+        super(Positionable_Card, self).__init__(rank, suit)
+        self.is_face_up = face_up
 
-deck1.populate()
+    def __str__(self):
+        if self.is_face_up:
+            rep = super(Positionable_Card, self).__str__()
+        else:
+            rep = "XX"
+        return rep
 
-print("\nDodałem do talii komplet kart.")
-print("Talia: ")
-print(deck1)
+    def flip(self):
+        self.is_face_up = not self.is_face_up
 
-deck1.shuffle()
+class Unprintable_Card(Card):
+    """ Karta, której ranga i kolor nie są ujawnione przy jej wyświetleniu. """
+    def __str__(self):
+        return "<utajniona>"
 
-print("\nPotasowałem talię kart.")
-print("Talia: ")
-print(deck1)
 
-my_hand = Hand()
-your_hand = Hand()
-hands=[my_hand, your_hand]
 
-deck1.deal(hands, per_hand = 5)
 
-print("\nRozdałem Tobie i sobie po 5 kart.")
-print("Moja ręka: ")
-print(my_hand )
-print("\nTwoja ręka.")
-print(your_hand)
-print("\nTalia: ")
-print(deck1)
+card1 = Card("A", "c")
+card2 = Unprintable_Card("A", "h")
+card3 = Positionable_Card("A", "s")
 
-deck1.clear()
-print("\nUsunąłem zawartość talii.")
-print("Talia: ", deck1)
+print("Wyświetlenie obiektu klasy Card: ")
+print(card1)
+
+print("\nWyświetlanie obiektu klasy Unprintable_Card: ")
+print(card2)
+
+print("\nWyświetlanie obiektu klasy positionable_Card: ")
+print(card3)
+
+print("Odwracanie stanu obiektu klasy positionable_Card (odkrycie-zakrycie karty).")
+card3.flip()
+
+print("\nWyświetlanie obiektu klasy positionable_Card: ")
+print(card3)
+
+# deck1 = Deck()
+# print("Utworzyłem nową talię.")
+# print("Talia: ")
+# print(deck1)
+#
+# deck1.populate()
+#
+# print("\nDodałem do talii komplet kart.")
+# print("Talia: ")
+# print(deck1)
+#
+# deck1.shuffle()
+#
+# print("\nPotasowałem talię kart.")
+# print("Talia: ")
+# print(deck1)
+#
+# my_hand = Hand()
+# your_hand = Hand()
+# hands=[my_hand, your_hand]
+#
+# deck1.deal(hands, per_hand = 5)
+#
+# print("\nRozdałem Tobie i sobie po 5 kart.")
+# print("Moja ręka: ")
+# print(my_hand )
+# print("\nTwoja ręka.")
+# print(your_hand)
+# print("\nTalia: ")
+# print(deck1)
+#
+# deck1.clear()
+# print("\nUsunąłem zawartość talii.")
+# print("Talia: ", deck1)
 
 # card1 = Card(rank = "A", suit = "c")
 # print("Wyświtlam obiekt kart (klasy Card): ")
